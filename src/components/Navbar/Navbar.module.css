@@ -6,3 +6,19 @@
 .item {
   list-style: none;
 }
+
+.item a {
+    text-decoration: none;
+}
+
+.active {
+    font-size: 20px;
+    color: greenyellow;
+}
+
+.navLink {
+    color: black;
+
+}
+
+

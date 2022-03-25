@@ -1,13 +1,22 @@
 import React from "react";
-import s from "./Post.module.css"
+import { PostType } from "../../../..";
+import s from "./Post.module.css";
 
-const Post = () => {
+
+
+
+export const Post = (props: PostType) => {
   return (
-      <div className={s.item}>
-        <img src='http://pm1.narvii.com/6889/74979d4d2744ec6e27995b6e866f091d04c0b40cr1-515-414v2_uhq.jpg'/>
-        post1
+    <div className={s.item}>
+      <img
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT62yFgkkXjo-bxJ_hsa-voLIroApzEUroKug&usqp=CAU"
+        alt="ava"
+      />
+      {props.message}
+      <div>
+        <span>like </span>
+        {props.likeCounts}
       </div>
+    </div>
   );
 };
-
-export default Post;

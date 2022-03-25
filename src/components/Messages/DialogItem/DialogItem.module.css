@@ -1,0 +1,13 @@
+
+.dialog {
+  padding-top: 15px;
+}
+
+.dialog a {
+ text-decoration: none;
+}
+
+.active {
+  font-size: 20px;
+  color: purple;
+}
