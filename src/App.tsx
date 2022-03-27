@@ -8,15 +8,15 @@ import { Route, Routes } from "react-router-dom";
 import { News } from "./components/News/News";
 import { Music } from "./components/Music/Music";
 import { Settings } from "./components/Settings/Settings";
-import { DialogsDataType, MessagesDataType, PostType } from "./index";
+import {StateType} from "./redux/state";
 
 type AppPropsType = {
-  dialogsData: Array<DialogsDataType>;
-  messagesData: Array<MessagesDataType>;
-  post: Array<PostType>;
+  state: StateType
 };
 
 const App = (props: AppPropsType) => {
+
+
   return (
     <div className="app-wrapper">
       <Header />
@@ -24,14 +24,13 @@ const App = (props: AppPropsType) => {
 
       <div className="app-wrapper-content">
         <Routes>
-          <Route path="/" element={<Profile post={props.post}/>} />
-          <Route path="/profile" element={<Profile post={props.post}/>} />
+          <Route path="/" element={<Profile state={props.state.profilePage}/>} />
+          <Route path="/profile" element={<Profile state={props.state.profilePage}/>} />
           <Route
             path="/messages/*"
             element={
               <Messages
-                dialogsData={props.dialogsData}
-                messagesData={props.messagesData}
+                  state = {props.state.messagesPage}
               />
             }
           />
