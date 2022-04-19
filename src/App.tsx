@@ -8,15 +8,14 @@ import { Route, Routes } from "react-router-dom";
 import { News } from "./components/News/News";
 import { Music } from "./components/Music/Music";
 import { Settings } from "./components/Settings/Settings";
-import {StateType} from "./redux/state";
+import { StateType } from "./redux/state";
 
 type AppPropsType = {
-  state: StateType
+  state: StateType;
+  addPost: (postMessage:string) => void;
 };
 
 const App = (props: AppPropsType) => {
-
-
   return (
     <div className="app-wrapper">
       <Header />
@@ -26,11 +25,17 @@ const App = (props: AppPropsType) => {
         <Routes>
           <Route
             path="/"
-            element={<Profile state={props.state.profilePage} />}
+            element={<Profile
+                state={props.state.profilePage}
+                addPost = {props.addPost}
+            />}
           />
           <Route
             path="/profile"
-            element={<Profile state={props.state.profilePage} />}
+            element={<Profile
+                state={props.state.profilePage}
+                addPost = {props.addPost}
+            />}
           />
           <Route
             path="/messages/*"
