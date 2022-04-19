@@ -1,9 +1,8 @@
-import React from "react";
+import React, {useRef} from "react";
 import s from "./Messages.module.css";
-import {Message} from "./Message/Message";
-import {DialogItem} from "./DialogItem/DialogItem";
-import {MessagesPageType} from "../../redux/state";
-
+import { Message } from "./Message/Message";
+import { DialogItem } from "./DialogItem/DialogItem";
+import { MessagesPageType } from "../../redux/state";
 
 // type DialogsDataType = {
 //   id:string
@@ -32,29 +31,39 @@ import {MessagesPageType} from "../../redux/state";
 //   { id: "5", message: "bla bla bla" },
 // ];
 
-
 type MessagesPropsType = {
-    state:MessagesPageType
+  state: MessagesPageType;
 };
 
+export const Messages = (props: MessagesPropsType) => {
+  let dialogsElements = props.state.dialogs.map((d) => {
+    return <DialogItem name={d.name} id={d.id} />;
+  });
 
-export const Messages = (props:MessagesPropsType) => {
+  let messagesElements = props.state.messages.map((m) => {
+    return <Message message={m.message} id={m.id} />;
+  });
+
+  // let newMessageElement = React.createRef<HTMLTextAreaElement>();
+  // let addNewMessage = () => {
+  //   alert(newMessageElement.current?.value);
+  // };
 
 
-    let dialogsElements = props.state.dialogs.map((d) => {
-        return <DialogItem name={d.name} id={d.id} />;
-    });
-
-
-    let messagesElements = props.state.messages.map((m) => {
-        return <Message message={m.message} id={m.id} />;
-    });
+  let newMessageElement = useRef<HTMLTextAreaElement>(null)
+  let addNewMessage = () => {
+    alert(newMessageElement.current?.value)
+  };
 
   return (
     <div className={s.dialogs_wrapper}>
       <div className={s.dialogs}>{dialogsElements}</div>
 
-      <div className={s.messages}>{messagesElements}</div>
+      <div className={s.messages}>
+        {messagesElements}
+        <textarea ref={newMessageElement}></textarea>
+        <button onClick={addNewMessage}>Add Message</button>
+      </div>
     </div>
   );
 };

@@ -3,14 +3,9 @@ import { ProfilePageType } from "../../../redux/state";
 import s from "./MyPosts.module.css";
 import { Post } from "./Post/Post";
 
-// export type PostType = {
-//     id:string
-//     message:string
-//     likeCounts:number
-// }
+// export type newPostElement = string || null
 
 export const MyPosts = (props: ProfilePageType) => {
-  console.log(props);
 
   // let posts:Array<PostType> = [
   //   { id: "1", message: "Hello, how r u?", likeCounts: 15 },
@@ -22,12 +17,18 @@ export const MyPosts = (props: ProfilePageType) => {
     return <Post id={p.id} message={p.message} likeCounts={p.likeCounts} />;
   });
 
+  let newPostElement = React.createRef<HTMLTextAreaElement>()
+
+  let addNewPost = () => {
+      alert(newPostElement.current?.value)
+  }
+
   return (
     <div className={s.posts_block}>
       <h3>My posts</h3>
       <div>
-        <textarea></textarea>
-        <button>Add post</button>
+        <textarea ref={newPostElement}></textarea>
+        <button  onClick={addNewPost}>Add post</button>
       </div>
       <div className={s.posts}>{postsElements}</div>
     </div>
