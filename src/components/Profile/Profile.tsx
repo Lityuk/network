@@ -5,8 +5,9 @@ import {ProfilePageType} from "../../redux/state";
 
 
 export type ProfilePropsType = {
-    state:ProfilePageType
-    addPost: (postMessage:string) => void;
+    profilePage:ProfilePageType
+    addPost: () => void;
+    updateNewPostText:(newText:string) => void
 }
 
 export const Profile = (props:ProfilePropsType) => {
@@ -16,8 +17,10 @@ export const Profile = (props:ProfilePropsType) => {
     <div>
       <ProfileInfo />
       <MyPosts
-          posts={props.state.posts}
+          posts={props.profilePage.posts}
+          newPostText={props.profilePage.newPostText}
           addPost = {props.addPost}
+          updateNewPostText = {props.updateNewPostText}
       />
     </div>
   );
