@@ -2,12 +2,13 @@ import React, { useRef } from "react";
 import s from "./Messages.module.css";
 import { Message } from "./Message/Message";
 import { DialogItem } from "./DialogItem/DialogItem";
-import { MessagesPageType } from "../../redux/state";
+import {ActionType, addMessageAC, MessagesPageType, updateMessageAC} from "../../redux/state";
 
 type MessagesPropsType = {
   state: MessagesPageType;
-  updateNewMessageText: (text: string) => void;
-  addMessage: () => void;
+  // updateNewMessageText: (text: string) => void;
+  // addMessage: () => void;
+  dispatch:(action:ActionType)=>void
 };
 
 export const Messages = (props: MessagesPropsType) => {
@@ -26,12 +27,12 @@ export const Messages = (props: MessagesPropsType) => {
   const addNewMessage = () => {
     // debugger
     const text = newMessageElement.current?.value;
-    text && props.addMessage()
+    text && props.dispatch(addMessageAC())
   };
 
   const  onMessageChange= () => {
     const text = newMessageElement.current?.value;
-    text && props.updateNewMessageText(text)
+    text && props.dispatch(updateMessageAC(text))
 
   }
 

@@ -8,14 +8,15 @@ import { Route, Routes } from "react-router-dom";
 import { News } from "./components/News/News";
 import { Music } from "./components/Music/Music";
 import { Settings } from "./components/Settings/Settings";
-import { StateType } from "./redux/state";
+import { ActionType, StateType } from "./redux/state";
 
 type AppPropsType = {
   state: StateType;
-  addPost: () => void;
-  updateNewPostText: (newText: string) => void;
-  updateNewMessageText: (text: string) => void;
-  addMessage: () => void;
+  // addPost: () => void;
+  // updateNewPostText: (newText: string) => void;
+  // updateNewMessageText: (text: string) => void;
+  // addMessage: () => void;
+  dispatch: (action: ActionType) => void;
 };
 
 const App = (props: AppPropsType) => {
@@ -30,24 +31,27 @@ const App = (props: AppPropsType) => {
             path="/"
             element={<Profile
                 profilePage={props.state.profilePage}
-                addPost = {props.addPost}
-                updateNewPostText ={props.updateNewPostText}
+                // addPost = {props.addPost}
+                // updateNewPostText ={props.updateNewPostText}
+                dispatch={props.dispatch}
             />}
           />
           <Route
             path="/profile"
             element={<Profile
                 profilePage={props.state.profilePage}
-                addPost = {props.addPost}
-                updateNewPostText ={props.updateNewPostText}
+                // addPost = {props.addPost}
+                // updateNewPostText ={props.updateNewPostText}
+                dispatch={props.dispatch}
             />}
           />
           <Route
             path="/messages/*"
             element={<Messages
                 state={props.state.messagesPage}
-                updateNewMessageText = {props.updateNewMessageText}
-                addMessage = {props.addMessage}
+                // updateNewMessageText = {props.updateNewMessageText}
+                // addMessage = {props.addMessage}
+                dispatch={props.dispatch}
             />}
           />
           <Route path="/news" element={<News />} />

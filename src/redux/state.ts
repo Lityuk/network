@@ -1,4 +1,23 @@
-// type ObserverType = () => void;
+export type addPostActionType = {
+  type: "ADD_POST";
+};
+export type updatePostActionType = {
+  type: "UPDATE_POST";
+  text: string;
+};
+export type addMessageActionType = {
+  type: "ADD_MESSAGE";
+};
+export type updateMessageActionType = {
+  type: "UPDATE_MESSAGE";
+  text: string;
+};
+
+export type ActionType =
+  | addPostActionType
+  | updatePostActionType
+  | addMessageActionType
+  | updateMessageActionType;
 
 export type PostType = {
   id: string;
@@ -34,13 +53,15 @@ export type StateType = {
 
 export type StoreType = {
   _state: StateType;
-  getState: () => StateType;
-  addPost: () => void;
   _callSubscriber: (state: StateType) => void;
-  updateNewPostText: (newText: string) => void;
-  addMessage: () => void;
-  updateNewMessageText: (newTextMessage: string) => void;
+  getState: () => StateType;
   subscribe: (observer: (state: StateType) => void) => void;
+
+  // addPost: () => void;
+  // updateNewPostText: (newText: string) => void;
+  // addMessage: () => void;
+  // updateNewMessageText: (newTextMessage: string) => void;
+  dispatch: (action: ActionType) => void;
 };
 
 export const store: StoreType = {
@@ -83,35 +104,73 @@ export const store: StoreType = {
     this._callSubscriber = observer;
   },
 
-  addPost() {
-    const newPost: PostType = {
-      id: "5",
-      message: this._state.profilePage.newPostText,
-      likeCounts: 0,
-    };
-    this._state.profilePage.posts.push(newPost);
-    this._state.profilePage.newPostText = "";
-    this._callSubscriber(this._state);
-  },
-  updateNewPostText(newText) {
-    this._state.profilePage.newPostText=newText
-    this._callSubscriber(this._state);
-  },
+  // addPost() {
+  //   const newPost: PostType = {
+  //     id: "5",
+  //     message: this._state.profilePage.newPostText,
+  //     likeCounts: 0,
+  //   };
+  //   this._state.profilePage.posts.push(newPost);
+  //   this._state.profilePage.newPostText = "";
+  //   this._callSubscriber(this._state);
+  // },
+  // updateNewPostText(newText) {
+  //   this._state.profilePage.newPostText = newText;
+  //   this._callSubscriber(this._state);
+  // },
+  //
+  // addMessage() {
+  //   const newMessage: MessagesDataType = {
+  //     id: "6",
+  //     message: this._state.messagesPage.newTextMessage,
+  //   };
+  //   this._state.messagesPage.messages.push(newMessage);
+  //   this._state.messagesPage.newTextMessage = "";
+  //   this._callSubscriber(this._state);
+  // },
+  // updateNewMessageText(newTextMessage) {
+  //   this._state.messagesPage.newTextMessage = newTextMessage;
+  //   this._callSubscriber(this._state);
+  // },
 
-  addMessage() {
-    const newMessage: MessagesDataType = {
-      id: "6",
-      message: this._state.messagesPage.newTextMessage,
-    };
-    this._state.messagesPage.messages.push(newMessage);
-    this._state.messagesPage.newTextMessage = "";
-    this._callSubscriber(this._state);
+  dispatch(action: ActionType) {
+    if (action.type === "ADD_POST") {
+      const newPost: PostType = {
+        id: "5",
+        message: this._state.profilePage.newPostText,
+        likeCounts: 0,
+      };
+      this._state.profilePage.posts.push(newPost);
+      this._state.profilePage.newPostText = "";
+      this._callSubscriber(this._state);
+    } else if (action.type === "UPDATE_POST") {
+      this._state.profilePage.newPostText = action.text;
+      this._callSubscriber(this._state);
+    } else if (action.type === "ADD_MESSAGE") {
+      const newMessage: MessagesDataType = {
+        id: "6",
+        message: this._state.messagesPage.newTextMessage,
+      };
+      this._state.messagesPage.messages.push(newMessage);
+      this._state.messagesPage.newTextMessage = "";
+      this._callSubscriber(this._state);
+    } else if (action.type === "UPDATE_MESSAGE") {
+      this._state.messagesPage.newTextMessage = action.text;
+      this._callSubscriber(this._state);
+    }
   },
-  updateNewMessageText(newTextMessage) {
-    this._state.messagesPage.newTextMessage = newTextMessage;
-    this._callSubscriber(this._state);
-  },
-
 };
 
+export const addPostAC = (): addPostActionType => ({ type: "ADD_POST" });
 
+export const updatePostAC = (newText: string): updatePostActionType => ({
+  type: "UPDATE_POST",
+  text: newText,
+});
+export const addMessageAC = (): addMessageActionType => ({
+  type: "ADD_MESSAGE",
+});
+export const updateMessageAC = (newTextMessage: string): updateMessageActionType => ({
+  type: "UPDATE_MESSAGE",
+  text: newTextMessage,
+});

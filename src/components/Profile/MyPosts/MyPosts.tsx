@@ -1,15 +1,16 @@
 import React from "react";
-import { PostType, ProfilePageType } from "../../../redux/state";
+import {ActionType, addPostAC, PostType, updatePostAC} from "../../../redux/state";
 import s from "./MyPosts.module.css";
-import { Post } from "./Post/Post";
+import {Post} from "./Post/Post";
 
 // export type newPostElement = string || null
 
 type MyPostsType = {
   posts: Array<PostType>;
   newPostText: string;
-  addPost: () => void;
-  updateNewPostText: (newText: string) => void;
+  // addPost: () => void;
+  // updateNewPostText: (newText: string) => void;
+  dispatch:(action:ActionType)=>void
 };
 
 export const MyPosts = (props: MyPostsType) => {
@@ -28,13 +29,13 @@ export const MyPosts = (props: MyPostsType) => {
 
   const addNewPost = () => {
     const text = newPostElement.current?.value;
-    text && props.addPost();
+    text && props.dispatch(addPostAC());
   };
 
   const onPostChange = () => {
     // debugger
     const text = newPostElement.current?.value;
-    text && props.updateNewPostText(text);
+    text && props.dispatch(updatePostAC(text));
   };
 
   return (
